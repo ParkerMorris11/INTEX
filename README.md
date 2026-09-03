@@ -10,11 +10,19 @@ students. Built for the **Junior Core Case Competition**.
 
 ## Run it
 
-Double-click **`index.html`**, or drag it into any browser.
+Double-click **`index.html`**, or drag it into any browser. It is a single
+static page — no server, no build step, no database.
 
-That is the whole thing. One self-contained file — no server, no build step, no
-database, no network calls. It runs from a `file://` URL, which means the demo
-cannot fail because of wifi.
+**Live site:** deployed on Vercel — see [docs/DEPLOY.md](docs/DEPLOY.md).
+
+## What is in this repo
+
+| Path | What it is |
+|---|---|
+| `index.html` | **The deliverable.** The site we are submitting and deploying. |
+| `vercel.json` | Vercel config (headers, clean URLs, camera permission) |
+| `alt/v1/index.html` | An earlier prototype, kept for reference — it has a written-answer feedback engine the current site does not |
+| `src/`, `build.py` | Source for `alt/v1` only. Running `build.py` writes to `alt/v1/index.html`, **not** to the root `index.html`. |
 
 ---
 

@@ -25,7 +25,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).parent
 SRC = ROOT / "src"
-OUT = ROOT / "index.html"
+OUT = ROOT / "alt" / "v1" / "index.html"
 
 # Order matters: data and helpers must be defined before app.js runs.
 CSS_FILES = [

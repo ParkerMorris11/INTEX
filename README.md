@@ -22,7 +22,24 @@ static page — no server, no build step, no database.
 | `index.html` | **The deliverable.** The site we are submitting and deploying. |
 | `vercel.json` | Vercel config (headers, clean URLs, camera permission) |
 | `alt/v1/index.html` | An earlier prototype, kept for reference — it has a written-answer feedback engine the current site does not |
-| `src/`, `build.py` | Source for `alt/v1` only. Running `build.py` writes to `alt/v1/index.html`, **not** to the root `index.html`. |
+| `src/feedback-addon.js` / `.css` | Source for the written-answer feedback engine. Edit these, then run `python3 inject-addon.py` to inline them into `index.html`. |
+| `inject-addon.py` | Inlines the add-on between marker comments in `index.html`. Safe to re-run. |
+| `src/` (rest), `build.py` | Source for `alt/v1` only. Running `build.py` writes to `alt/v1/index.html`, **not** to the root `index.html`. |
+
+## Editing the feedback engine
+
+`index.html` is a single self-contained file, so the add-on cannot be a separate
+`<script src>`. Author it in `src/feedback-addon.js` and `src/feedback-addon.css`,
+then:
+
+```bash
+python3 inject-addon.py
+```
+
+It replaces whatever sits between the `FEEDBACK ADD-ON` marker comments, so
+re-running never duplicates the block. To add an answer key for a new technical
+question, copy an existing `key(...)` call — it is matched to the question by a
+slug of the question text, so reordering the bank is safe.
 
 ---
 

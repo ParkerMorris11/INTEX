@@ -1,0 +1,153 @@
+/* ==========================================================================
+   WRITTEN-ANSWER FEEDBACK PANEL
+   Uses the page's existing BYU custom properties so it matches the rest of
+   the site rather than introducing a second palette.
+   ========================================================================== */
+
+.wf-wrap {
+    margin: 0 28px 24px;
+    padding: 22px;
+    background: #fbfcfe;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.wf-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--byu-navy);
+    margin-bottom: 6px;
+}
+
+.wf-hint {
+    margin: 0 0 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #5a6b7d;
+}
+
+.wf-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #22303f;
+    padding: 14px;
+    border: 1px solid #c3d0dd;
+    border-radius: 6px;
+    background: #fff;
+    resize: vertical;
+    min-height: 150px;
+}
+.wf-textarea:focus {
+    outline: none;
+    border-color: var(--byu-royal);
+    box-shadow: 0 0 0 3px rgba(0, 71, 186, .12);
+}
+
+.wf-meta {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    color: #7b8794;
+    margin-top: 6px;
+}
+
+.wf-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+/* --- result ------------------------------------------------------------- */
+
+.wf-result { margin-top: 20px; }
+
+.wf-score {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.wf-ring {
+    flex: none;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    position: relative;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--byu-navy);
+    background: conic-gradient(var(--byu-royal) var(--pct, 0%), #dfe6ee 0);
+}
+.wf-ring::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    background: #fbfcfe;
+    border-radius: 50%;
+}
+.wf-ring span { position: relative; z-index: 1; }
+
+.wf-verdict { font-weight: 700; color: var(--byu-navy); font-size: 16px; }
+.wf-sub { font-size: 12.5px; color: #5a6b7d; line-height: 1.5; margin-top: 2px; }
+
+.wf-fix {
+    border: 1px solid #ecd4ac;
+    background: #fbf1e2;
+    color: #8a5300;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+}
+.wf-fix strong { display: block; margin-bottom: 4px; }
+
+.wf-dims { display: grid; gap: 8px; }
+
+.wf-dim {
+    display: grid;
+    grid-template-columns: 22px 152px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.wf-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+}
+.wf-ok  .wf-icon { background: #e8f4ef; color: #12664a; border: 1px solid #b6ddcd; }
+.wf-mid .wf-icon { background: #fbf1e2; color: #8a5300; border: 1px solid #ecd4ac; }
+.wf-gap .wf-icon { background: #fbecec; color: #9c2b32; border: 1px solid #eec7c8; }
+
+.wf-name { font-weight: 700; color: #364457; }
+.wf-note { color: #4d5c72; }
+
+.wf-how { margin-top: 14px; font-size: 13px; }
+.wf-how summary { cursor: pointer; font-weight: 600; color: var(--byu-royal); }
+.wf-how div { margin-top: 10px; color: #5a6b7d; line-height: 1.6; }
+
+@media (max-width: 700px) {
+    .wf-wrap { margin: 0 16px 20px; padding: 16px; }
+    .wf-dim { grid-template-columns: 22px 1fr; }
+    .wf-note { grid-column: 2; }
+}

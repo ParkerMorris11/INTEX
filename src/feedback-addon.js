@@ -503,7 +503,7 @@
     } else {
       fix = target.note;
     }
-    return { pct: pct, verdict: verdict, dims: dims, fixFirst: fix };
+    return { pct: pct, verdict: verdict, dims: dims, fixFirst: fix, missing: missing || [] };
   }
 
   /* ---------- story rubric ------------------------------------------------ */
@@ -864,14 +864,8 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function runFeedback() {
-    var q = (typeof currentQuestions !== 'undefined' && currentQuestions)
-      ? currentQuestions[currentIndex] : null;
-    if (!q) return;
-    var r = evaluateAnswer(document.getElementById('wf-text').value, q);
-    var out = document.getElementById('wf-out');
-
-    out.innerHTML =
+  function resultHTML(r) {
+    return (
       '<div class="wf-result">' +
         '<div class="wf-score">' +
           '<div class="wf-ring" style="--pct:' + r.pct + '%"><span>' + r.pct + '</span></div>' +
@@ -904,7 +898,15 @@
           'wrote is factually correct &mdash; which is exactly why the strong answer is there to ' +
           'compare against.' +
         '</div></details>' +
-      '</div>';
+      '</div>');
+  }
+
+  function runFeedback() {
+    var q = (typeof currentQuestions !== 'undefined' && currentQuestions)
+      ? currentQuestions[currentIndex] : null;
+    if (!q) return;
+    var out = document.getElementById('wf-out');
+    out.innerHTML = resultHTML(evaluateAnswer(document.getElementById('wf-text').value, q));
     out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -932,4 +934,18 @@
   if (!hook()) {
     document.addEventListener('DOMContentLoaded', hook);
   }
+
+  /* ---------- API for the speech layer -----------------------------------
+     The spoken-answer scorer reuses this engine rather than duplicating it,
+     so a typed answer and a spoken one are judged the same way, plus two
+     dimensions that only exist for speech (filler words and pace). */
+  window.LaunchpadFeedback = {
+    evaluate: evaluateAnswer,
+    rescoreWith: function (baseResult, extraDims) {
+      return finalise(baseResult.dims.concat(extraDims), baseResult.missing);
+    },
+    render: resultHTML,
+    words: words,
+    countMatches: countMatches
+  };
 })();
